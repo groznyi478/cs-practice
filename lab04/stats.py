@@ -37,3 +37,27 @@ def read_valid(lines: list[str]) -> list[dict]:
         records.append(record)
 
     return records
+def average_by_city(records: list[dict]) -> dict:
+    totals = {}
+    counts = {}
+
+    for record in records:
+        city = record["city"]
+        temperature = record["temperature"]
+
+        totals[city] = totals.get(city, 0.0) + temperature
+        counts[city] = counts.get(city, 0) + 1
+
+    return {
+        city: round(totals[city] / counts[city], 1)
+        for city in totals
+    }
+
+
+def warmest_city(records: list[dict]) -> str:
+    averages = average_by_city(records)
+
+    if not averages:
+        raise ValueError("Нет корректных записей для определения города")
+
+    return min(averages, key=lambda city: (-averages[city], city))
