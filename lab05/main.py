@@ -1,3 +1,7 @@
+import sys
+from logstats import parse_event, count_levels, top_errors, format_report
+
+
 def main():
     
     log_filename = sys.stdin.readline().strip()
@@ -11,9 +15,7 @@ def main():
 
     with open(log_filename, "r", encoding="utf-8") as log:
         for line in log:
-
             line_clean = line.rstrip('\r\n')
-
             total_lines += 1
             try:
                 event = parse_event(line_clean)
@@ -29,7 +31,6 @@ def main():
 
 
     with open(log_filename, "r", encoding="utf-8") as log:
-
         all_lines = [line.rstrip('\r\n') for line in log]
 
     counts = count_levels(all_lines)
