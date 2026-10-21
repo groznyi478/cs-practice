@@ -1,7 +1,3 @@
-import sys
-from logstats import parse_event, count_levels, top_errors, format_report
-
-
 def main():
     
     log_filename = sys.stdin.readline().strip()
@@ -15,11 +11,12 @@ def main():
 
     with open(log_filename, "r", encoding="utf-8") as log:
         for line in log:
-            if not line.strip():
-                continue
+
+            line_clean = line.rstrip('\r\n')
+
             total_lines += 1
             try:
-                event = parse_event(line)
+                event = parse_event(line_clean)
                 if event["level"] == "ERROR":
                     error_lines += 1
             except ValueError:
@@ -32,10 +29,11 @@ def main():
 
 
     with open(log_filename, "r", encoding="utf-8") as log:
-        all_lines = log.readlines()
+
+        all_lines = [line.rstrip('\r\n') for line in log]
 
     counts = count_levels(all_lines)
-    top_errs = top_errors(all_lines, 3)  # Нам нужны топ-3 частых ошибок по примеру
+    top_errs = top_errors(all_lines, 3)
     report_text = format_report(counts, top_errs)
 
 
