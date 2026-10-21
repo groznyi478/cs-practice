@@ -1,7 +1,9 @@
 def parse_event(line: str) -> dict:
+  
     line = line.strip()
     if not line:
         raise ValueError("Пустая строка")
+
 
     parts = line.split(maxsplit=2)
     if len(parts) < 3:
@@ -17,6 +19,7 @@ def parse_event(line: str) -> dict:
 def count_levels(lines: list[str]) -> dict:
     counts = {}
     for line in lines:
+
         if not line.strip():
             continue
         try:
@@ -42,7 +45,9 @@ def top_errors(lines: list[str], n: int) -> list[list]:
         except ValueError:
             continue
 
+
     sorted_errors = sorted(error_counts.items(), key=lambda x: (-x[1], x[0]))
+
 
     return [[msg, count] for msg, count in sorted_errors[:n]]
 
@@ -61,5 +66,5 @@ def format_report(counts: dict, errors: list[list]) -> str:
 
         lines.append(f"- {msg} – {count}")
 
-   
+
     return "\n".join(lines) + "\n"
