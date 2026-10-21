@@ -61,5 +61,5 @@ def format_report(counts: dict, errors: list[list]) -> str:
 
         lines.append(f"- {msg} – {count}")
 
-    
+   
     return "\n".join(lines) + "\n"
