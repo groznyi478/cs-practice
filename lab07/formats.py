@@ -20,10 +20,9 @@ _FLOAT = re.compile(r"[+-]?\d+\.\d+")
 
 def _convert(value: str):
     value = value.strip()
-    low = value.lower()
-    if low in ("true", "yes"):
+    if value in ("true", "yes"):
         return True
-    if low in ("false", "no"):
+    if value in ("false", "no"):
         return False
     if _INT.fullmatch(value):
         return int(value)
