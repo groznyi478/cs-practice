@@ -28,6 +28,9 @@ def _convert(value: str):
         return int(value)
     if _FLOAT.fullmatch(value):
         return float(value)
+    dotted = value.replace(",", ".")
+    if _FLOAT.fullmatch(dotted):
+        return float(dotted)
     return value
 
 def parse_settings(lines: list[str]) -> dict:
