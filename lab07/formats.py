@@ -33,7 +33,7 @@ def _convert(value: str):
 
 def parse_settings(lines: list[str]) -> dict:
     result = {}
-    current_list = None  # ключ, который сейчас собирает список
+    current_list = None
     for raw in lines:
         line = raw.split("#", 1)[0].strip()
         if not line:
@@ -61,3 +61,6 @@ def merge_by_key(rows: list[dict], extra: dict, key: str = "id") -> list[dict]:
         info = extra.get(row.get(key), {})
         merged.append({**info, **row})
     return merged
+
+def records_to_json(records: list[dict]) -> str:
+    return json.dumps(records, ensure_ascii=False, indent=2, sort_keys=True)
